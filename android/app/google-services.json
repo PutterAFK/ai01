@@ -1,0 +1,150 @@
+{
+  "project_info": {
+    "project_number": "807701533413",
+    "project_id": "mental-health-chat-8659e",
+    "storage_bucket": "mental-health-chat-8659e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807701533413:android:4a95bf55f09a90e71c7a0c",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807701533413-12tsc3t9mloqmg68h439hshg8sl5r06e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.application",
+            "certificate_hash": "3ebc84c5a8ce103243c5296e0aae6df7c71f9aab"
+          }
+        },
+        {
+          "client_id": "807701533413-1v9opfg63f3so2saudik5v56opgda37s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1aR18QaYiyF8Bu1yGM9wM_nDJ53L2XiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807701533413-1v9opfg63f3so2saudik5v56opgda37s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807701533413-nlhj1uj0k54fi3g0n8i1bme60dag5df2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kohang.myApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807701533413:android:29f7ce805d5a000f1c7a0c",
+        "android_client_info": {
+          "package_name": "com.kohang.my_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807701533413-63gd2ajt08qb2tebkvp0hj3cagc4l9lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kohang.my_app",
+            "certificate_hash": "3ebc84c5a8ce103243c5296e0aae6df7c71f9aab"
+          }
+        },
+        {
+          "client_id": "807701533413-1v9opfg63f3so2saudik5v56opgda37s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1aR18QaYiyF8Bu1yGM9wM_nDJ53L2XiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807701533413-1v9opfg63f3so2saudik5v56opgda37s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807701533413-nlhj1uj0k54fi3g0n8i1bme60dag5df2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kohang.myApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807701533413:android:8de2dd01722baec11c7a0c",
+        "android_client_info": {
+          "package_name": "com.mindmate.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807701533413-g7l8g82lceue38b90ric6ts6p35u98qt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindmate.app",
+            "certificate_hash": "59eb6a7582c43598547d5827597b6d7f32ad7b2b"
+          }
+        },
+        {
+          "client_id": "807701533413-o45qhcodjb7vh548p7uiludo0b3m41ri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindmate.app",
+            "certificate_hash": "3ebc84c5a8ce103243c5296e0aae6df7c71f9aab"
+          }
+        },
+        {
+          "client_id": "807701533413-1v9opfg63f3so2saudik5v56opgda37s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1aR18QaYiyF8Bu1yGM9wM_nDJ53L2XiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807701533413-1v9opfg63f3so2saudik5v56opgda37s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807701533413-nlhj1uj0k54fi3g0n8i1bme60dag5df2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kohang.myApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
