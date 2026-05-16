@@ -1,3 +1,5 @@
+import 'package:mindmate/providers/chat_provider.dart';
+import 'package:mindmate/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
