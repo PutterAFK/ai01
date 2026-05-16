@@ -1,12 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:mindmate/core/constants/app_colors.dart';
-import 'package:mindmate/core/widgets/user_avatar.dart';
-import 'package:mindmate/models/conversation_model.dart';
 import 'package:mindmate/providers/chat_provider.dart';
-import 'package:mindmate/screens/settings/settings_screen.dart';
-import 'package:provider/provider.dart';
-
 class ChatDrawer extends StatelessWidget {
   const ChatDrawer({super.key});
 
