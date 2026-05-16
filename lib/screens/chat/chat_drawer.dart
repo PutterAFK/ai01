@@ -1,4 +1,4 @@
-import 'package:mindmate/providers/chat_provider.dart';
+import '../../providers/chat_provider.dart';
 class ChatDrawer extends StatelessWidget {
   const ChatDrawer({super.key});
 
