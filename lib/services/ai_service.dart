@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:mindmate/core/utils/network_helper.dart';
 import 'remote_config_service.dart';
@@ -14,12 +14,12 @@ class AIService {
     required String userId,
   }) async {
 
-    final hasInternet =
-        await NetworkHelper.hasInternet();
+ final hasInternet =
+    await NetworkHelper.hasInternet();
 
-    if (!hasInternet) {
-      throw 'ไม่มีการเชื่อมต่ออินเตอร์เน็ต';
-    }
+if (!kIsWeb && !hasInternet) {
+  throw 'ไม่มีการเชื่อมต่ออินเตอร์เน็ต';
+}
 
     try {
 
