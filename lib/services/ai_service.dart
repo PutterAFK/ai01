@@ -1,57 +1,49 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:mindmate/core/utils/network_helper.dart';
-import 'remote_config_service.dart';
 
 class AIService {
-  final RemoteConfigService _remoteConfig =
-      RemoteConfigService();
+
+  final String baseUrl =
+      'https://mental-ai1.onrender.com';
+
+  final String apiKey =
+      'my-secret-key';
 
   Future<String> sendMessage({
     required String message,
     required String userId,
   }) async {
 
- final hasInternet =
-    await NetworkHelper.hasInternet();
-
-if (!kIsWeb && !hasInternet) {
-  throw 'ไม่มีการเชื่อมต่ออินเตอร์เน็ต';
-}
-
     try {
-
-      final baseUrl =
-          _remoteConfig.aiBaseUrl.trim();
-
-      final apiKey =
-          _remoteConfig.aiApiKey.trim();
-
-      if (baseUrl.isEmpty) {
-        throw 'ยังไม่ได้ตั้งค่า AI URL';
-      }
-
-      if (apiKey.isEmpty) {
-        throw 'ยังไม่ได้ตั้งค่า API KEY';
-      }
 
       final response =
           await http.post(
-        Uri.parse('$baseUrl/chat'),
+
+        Uri.parse(
+          '$baseUrl/chat',
+        ),
+
         headers: {
           'Content-Type':
               'application/json',
+
           'Authorization':
               'Bearer $apiKey',
         },
+
         body: jsonEncode({
+
           'message': message,
+
           'user_id': userId,
+
         }),
+
       ).timeout(
-        const Duration(seconds: 30),
+        const Duration(
+          seconds: 30,
+        ),
       );
 
       final data =
@@ -62,67 +54,26 @@ if (!kIsWeb && !hasInternet) {
       );
 
       if (
-          response.statusCode == 200) {
+          response.statusCode == 200
+      ) {
+
         return data['reply']
             ?? 'AI ไม่ตอบกลับ';
+
+      } else {
+
+        return 'Server Error: ${response.statusCode}';
+
       }
 
-      if (
-          response.statusCode == 401) {
-        throw 'ไม่มีสิทธิ์เข้าถึง API';
-      }
+    } on TimeoutException {
 
-      if (
-          response.statusCode == 429) {
-        throw 'มีผู้ใช้งานจำนวนมาก';
-      }
+      return 'เซิร์ฟเวอร์ตอบสนองช้า';
 
-      if (
-          response.statusCode >= 500) {
-        throw 'เซิร์ฟเวอร์มีปัญหา';
-      }
-
-      throw 'เกิดข้อผิดพลาด (${response.statusCode})';
-
-    } on SocketException {
-      throw 'ไม่มีอินเตอร์เน็ต';
-    } on http.ClientException {
-      throw 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
     } catch (e) {
-      throw e.toString();
+
+      return 'เกิดข้อผิดพลาด: $e';
+
     }
-  }
-
-  // สำหรับ ML Feedback
-  Future<void> sendFeedback({
-    required String question,
-    required String reply,
-    required int rating,
-    required String userId,
-  }) async {
-
-    final baseUrl =
-        _remoteConfig.aiBaseUrl.trim();
-
-    final apiKey =
-        _remoteConfig.aiApiKey.trim();
-
-    await http.post(
-      Uri.parse(
-        '$baseUrl/feedback',
-      ),
-      headers: {
-        'Content-Type':
-            'application/json',
-        'Authorization':
-            'Bearer $apiKey',
-      },
-      body: jsonEncode({
-        'user_id': userId,
-        'question': question,
-        'reply': reply,
-        'rating': rating,
-      }),
-    );
   }
 }

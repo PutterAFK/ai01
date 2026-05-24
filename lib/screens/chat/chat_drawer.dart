@@ -1,14 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../core/constants/app_colors.dart';
+import '../../core/widgets/user_avatar.dart';
+
+import '../../models/conversation_model.dart';
+
 import '../../providers/chat_provider.dart';
+
+import '../settings/settings_screen.dart';
+
 class ChatDrawer extends StatelessWidget {
-  const ChatDrawer({Key? key}) : super(key: key);
+  const ChatDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark =
+        Theme.of(context).brightness ==
+        Brightness.dark;
 
     return Drawer(
       backgroundColor:
-          isDark ? const Color(0xFF1E1E2E) : Colors.white,
+          isDark
+              ? const Color(0xFF1E1E2E)
+              : Colors.white,
       child: SafeArea(
         child: Column(
           children: [
@@ -16,7 +32,10 @@ class ChatDrawer extends StatelessWidget {
             _buildNewChatButton(context),
             const SizedBox(height: 8),
             Expanded(
-              child: _buildConversationList(context, isDark),
+              child: _buildConversationList(
+                context,
+                isDark,
+              ),
             ),
             Divider(
               color:
@@ -24,7 +43,10 @@ class ChatDrawer extends StatelessWidget {
                       ? Colors.white12
                       : Colors.grey.shade200,
             ),
-            _buildSettingsButton(context, isDark),
+            _buildSettingsButton(
+              context,
+              isDark,
+            ),
             const SizedBox(height: 8),
           ],
         ),
@@ -33,7 +55,8 @@ class ChatDrawer extends StatelessWidget {
   }
 
   Widget _buildHeader(bool isDark) {
-    final user = FirebaseAuth.instance.currentUser;
+    final user =
+        FirebaseAuth.instance.currentUser;
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -51,27 +74,33 @@ class ChatDrawer extends StatelessWidget {
                   CrossAxisAlignment.start,
               children: [
                 Text(
-                  user?.displayName ?? 'MindMate',
+                  user?.displayName ??
+                      'MindMate',
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  overflow:
+                      TextOverflow.ellipsis,
                   style: TextStyle(
                     color:
                         isDark
                             ? Colors.white
-                            : AppColors.textPrimaryLight,
+                            : AppColors
+                                .textPrimaryLight,
                     fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                    fontWeight:
+                        FontWeight.bold,
                   ),
                 ),
                 Text(
                   user?.email ?? '',
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  overflow:
+                      TextOverflow.ellipsis,
                   style: TextStyle(
                     color:
                         isDark
                             ? Colors.white38
-                            : AppColors.textSecondaryLight,
+                            : AppColors
+                                .textSecondaryLight,
                     fontSize: 12,
                   ),
                 ),
@@ -83,29 +112,45 @@ class ChatDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildNewChatButton(BuildContext context) {
+  Widget _buildNewChatButton(
+    BuildContext context,
+  ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-      ),
+      padding:
+          const EdgeInsets.symmetric(
+            horizontal: 12,
+          ),
       child: ElevatedButton.icon(
         onPressed: () {
-          context.read<ChatProvider>().startNewChat();
+          context
+              .read<ChatProvider>()
+              .startNewChat();
+
           Navigator.pop(context);
         },
-        icon: const Icon(Icons.add, size: 18),
-        label: const Text('แชทใหม่'),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
-          minimumSize: const Size(
-            double.infinity,
-            44,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+        icon: const Icon(
+          Icons.add,
+          size: 18,
         ),
+        label: const Text('แชทใหม่'),
+        style:
+            ElevatedButton.styleFrom(
+              backgroundColor:
+                  AppColors.primary,
+              foregroundColor:
+                  Colors.white,
+              minimumSize: const Size(
+                double.infinity,
+                44,
+              ),
+              shape:
+                  RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(
+                          12,
+                        ),
+                  ),
+            ),
       ),
     );
   }
@@ -115,7 +160,11 @@ class ChatDrawer extends StatelessWidget {
     bool isDark,
   ) {
     return Consumer<ChatProvider>(
-      builder: (context, chatProvider, _) {
+      builder: (
+        context,
+        chatProvider,
+        _,
+      ) {
         final conversations =
             chatProvider.conversations;
 
@@ -135,11 +184,16 @@ class ChatDrawer extends StatelessWidget {
         }
 
         return ListView.builder(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8,
-          ),
-          itemCount: conversations.length,
-          itemBuilder: (context, index) {
+          padding:
+              const EdgeInsets.symmetric(
+                horizontal: 8,
+              ),
+          itemCount:
+              conversations.length,
+          itemBuilder: (
+            context,
+            index,
+          ) {
             return _buildConversationTile(
               context,
               conversations[index],
@@ -159,8 +213,9 @@ class ChatDrawer extends StatelessWidget {
     bool isDark,
   ) {
     final isSelected =
-        chatProvider.currentConversationId ==
-        conversation.id;
+        chatProvider
+                .currentConversationId ==
+            conversation.id;
 
     return GestureDetector(
       onLongPress:
@@ -170,13 +225,18 @@ class ChatDrawer extends StatelessWidget {
             chatProvider,
           ),
       child: Container(
-        margin: const EdgeInsets.only(bottom: 4),
+        margin:
+            const EdgeInsets.only(
+              bottom: 4,
+            ),
         decoration: BoxDecoration(
           color:
               isSelected
-                  ? AppColors.primary.withOpacity(0.2)
+                  ? AppColors.primary
+                      .withOpacity(0.2)
                   : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(10),
         ),
         child: ListTile(
           dense: true,
@@ -191,14 +251,16 @@ class ChatDrawer extends StatelessWidget {
           title: Text(
             conversation.title,
             maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+            overflow:
+                TextOverflow.ellipsis,
             style: TextStyle(
               color:
                   isSelected
                       ? AppColors.primary
                       : isDark
                       ? Colors.white70
-                      : AppColors.textPrimaryLight,
+                      : AppColors
+                          .textPrimaryLight,
               fontSize: 14,
               fontWeight:
                   isSelected
@@ -207,24 +269,33 @@ class ChatDrawer extends StatelessWidget {
             ),
           ),
           subtitle:
-              conversation.lastMessage.isNotEmpty
+              conversation
+                      .lastMessage
+                      .isNotEmpty
                   ? Text(
-                    conversation.lastMessage,
+                    conversation
+                        .lastMessage,
                     maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    overflow:
+                        TextOverflow
+                            .ellipsis,
                     style: TextStyle(
                       color:
                           isDark
-                              ? Colors.white38
-                              : Colors.grey.shade500,
+                              ? Colors
+                                  .white38
+                              : Colors.grey
+                                  .shade500,
                       fontSize: 12,
                     ),
                   )
                   : null,
           onTap: () {
-            chatProvider.openConversation(
-              conversation.id,
-            );
+            chatProvider
+                .openConversation(
+                  conversation.id,
+                );
+
             Navigator.pop(context);
           },
         ),
@@ -241,26 +312,36 @@ class ChatDrawer extends StatelessWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('ลบแชทนี้?'),
+            title:
+                const Text('ลบแชทนี้?'),
             content: Text(
               'ต้องการลบ "${conversation.title}" ใช่ไหม?',
             ),
             actions: [
               TextButton(
                 onPressed:
-                    () => Navigator.pop(context),
-                child: const Text('ยกเลิก'),
+                    () => Navigator.pop(
+                      context,
+                    ),
+                child:
+                    const Text('ยกเลิก'),
               ),
               TextButton(
                 onPressed: () {
-                  chatProvider.deleteConversation(
-                    conversation.id,
+                  chatProvider
+                      .deleteConversation(
+                        conversation.id,
+                      );
+
+                  Navigator.pop(
+                    context,
                   );
-                  Navigator.pop(context);
                 },
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.error,
-                ),
+                style:
+                    TextButton.styleFrom(
+                      foregroundColor:
+                          AppColors.error,
+                    ),
                 child: const Text('ลบ'),
               ),
             ],
@@ -286,7 +367,8 @@ class ChatDrawer extends StatelessWidget {
           color:
               isDark
                   ? Colors.white70
-                  : AppColors.textPrimaryLight,
+                  : AppColors
+                      .textPrimaryLight,
           fontSize: 14,
         ),
       ),
