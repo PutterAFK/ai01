@@ -25,11 +25,13 @@ class AIService {
         ),
 
         headers: {
+
           'Content-Type':
               'application/json',
 
           'Authorization':
               'Bearer $apiKey',
+
         },
 
         body: jsonEncode({
@@ -42,7 +44,7 @@ class AIService {
 
       ).timeout(
         const Duration(
-          seconds: 30,
+          seconds: 15,
         ),
       );
 
@@ -60,9 +62,15 @@ class AIService {
         return data['reply']
             ?? 'AI ไม่ตอบกลับ';
 
+      } else if (
+          response.statusCode == 401
+      ) {
+
+        return 'API KEY ไม่ถูกต้อง';
+
       } else {
 
-        return 'Server Error: ${response.statusCode}';
+        return 'Server Error ${response.statusCode}';
 
       }
 
@@ -72,7 +80,7 @@ class AIService {
 
     } catch (e) {
 
-      return 'เกิดข้อผิดพลาด: $e';
+      return 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
 
     }
   }
