@@ -7,6 +7,7 @@ class AIService {
   final String baseUrl =
       'https://mental-ai1.onrender.com';
 
+  // ต้องตรงกับ Render API_KEY
   final String apiKey =
       'my-secret-key';
 
@@ -17,60 +18,43 @@ class AIService {
 
     try {
 
-      final response =
-          await http.post(
-
-        Uri.parse(
-          '$baseUrl/chat',
-        ),
+      final response = await http.post(
+        Uri.parse('$baseUrl/chat'),
 
         headers: {
 
-          'Content-Type':
-              'application/json',
+          'Content-Type': 'application/json',
 
+          // สำคัญมาก
           'Authorization':
               'Bearer $apiKey',
-
         },
 
         body: jsonEncode({
-
           'message': message,
-
           'user_id': userId,
-
         }),
 
       ).timeout(
-        const Duration(
-          seconds: 15,
-        ),
+        const Duration(seconds: 15),
       );
+
+      // DEBUG
+      print(response.statusCode);
+      print(response.body);
 
       final data =
-          jsonDecode(
-        utf8.decode(
-          response.bodyBytes,
-        ),
-      );
+          jsonDecode(response.body);
 
-      if (
-          response.statusCode == 200
-      ) {
+      if (response.statusCode == 200) {
 
-        return data['reply']
-            ?? 'AI ไม่ตอบกลับ';
-
-      } else if (
-          response.statusCode == 401
-      ) {
-
-        return 'API KEY ไม่ถูกต้อง';
+        return data['reply'] ??
+            'AI ไม่ตอบกลับ';
 
       } else {
 
-        return 'Server Error ${response.statusCode}';
+        return data['error'] ??
+            'Server Error';
 
       }
 
@@ -80,7 +64,7 @@ class AIService {
 
     } catch (e) {
 
-      return 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
+      return 'เกิดข้อผิดพลาด: $e';
 
     }
   }
